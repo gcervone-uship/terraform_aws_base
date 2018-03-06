@@ -4,9 +4,8 @@ terraform {
     key = "state"
     region = "us-east-1"
 
-    access_key = "${var.access_key}"
-    secret_key = "${var.secret_key}"
-    role_arn = "${var.role_arn}"
+    # uses access_key and secret_key from default aws config
+    role_arn = "arn:aws:iam::758748077998:role/sre"
 
   }
 }
