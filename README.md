@@ -39,6 +39,7 @@ This README would normally document whatever steps are necessary to get your app
 
 * Create pipeline workflow to segregate the various environments from each other (i.e. dev, prod, qa, etc)
 
+* Create security groups for http and https for 0.0.0.0/0 ingress.
 
 * Segregate workflow on logical boundaries:
     - Pre-work
