@@ -179,6 +179,21 @@ module "private_memcached_security_group" {
   tags = "${local.common_tags}"
 }
 
+module "private_nfs_security_group" {
+  source = "terraform-aws-modules/security-group/aws//modules/nfs"
+
+  name        = "private-nfs-sg"
+  description = "tcp 2049 for RFC 1918 private subnets, egress ports are open to all networks"
+  vpc_id      = "${local.my_vpc}"
+
+  ingress_cidr_blocks    = "${local.rfc_1918_private_networks}"
+  auto_ingress_with_self = []
+
+  ingress_rules = "${local.common_ingress_rules}"
+
+  tags = "${local.common_tags}"
+}
+
 #####################################################
 # Default Security groups open to all networks
 #####################################################
