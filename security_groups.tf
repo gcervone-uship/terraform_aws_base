@@ -1,18 +1,27 @@
 locals {
 
+  # These security groups are applied to this VPC
+  my_vpc = "${module.vpc.vpc_id}"
+
+  # Tags applied to all security groups
   common_tags = {
     Terraform = "true"
     division = "operations"
     project = "aws base"
     environment = "proto"
     envid = "unknown"
-    role = "unknown"
+    role = "default security groups"
   }
 
-  rfc_1918_private_networks = ["10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
-  all_networks = ["0.0.0.0/0"]
+  # Ingress rules applied to all security group.
+  # Add ICMP to all rules
+  common_ingress_rules = ["all-icmp"]
 
-  my_vpc = "${module.vpc.vpc_id}"
+  # Private security groups allow ingress from these networks
+  rfc_1918_private_networks = ["10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
+
+  # Public security groups allow ingress from these networks
+  all_networks = ["0.0.0.0/0"]
 
 }
 
@@ -30,6 +39,8 @@ module "private_ssh_security_group" {
   ingress_cidr_blocks    = "${local.rfc_1918_private_networks}"
   auto_ingress_with_self = []
 
+  ingress_rules = "${local.common_ingress_rules}"
+
   tags = "${local.common_tags}"
 }
 
@@ -42,6 +53,8 @@ module "private_http_security_group" {
 
   ingress_cidr_blocks    = "${local.rfc_1918_private_networks}"
   auto_ingress_with_self = []
+
+  ingress_rules = "${local.common_ingress_rules}"
 
   tags = "${local.common_tags}"
 }
@@ -56,6 +69,8 @@ module "private_https_security_group" {
   ingress_cidr_blocks    = "${local.rfc_1918_private_networks}"
   auto_ingress_with_self = []
 
+  ingress_rules = "${local.common_ingress_rules}"
+
   tags = "${local.common_tags}"
 }
 
@@ -68,6 +83,8 @@ module "private_rdp_security_group" {
 
   ingress_cidr_blocks    = "${local.rfc_1918_private_networks}"
   auto_ingress_with_self = []
+
+  ingress_rules = "${local.common_ingress_rules}"
 
   tags = "${local.common_tags}"
 }
@@ -82,6 +99,8 @@ module "private_redshift_security_group" {
   ingress_cidr_blocks    = "${local.rfc_1918_private_networks}"
   auto_ingress_with_self = []
 
+  ingress_rules = "${local.common_ingress_rules}"
+
   tags = "${local.common_tags}"
 }
 
@@ -94,6 +113,8 @@ module "private_mysql_security_group" {
 
   ingress_cidr_blocks    = "${local.rfc_1918_private_networks}"
   auto_ingress_with_self = []
+
+  ingress_rules = "${local.common_ingress_rules}"
 
   tags = "${local.common_tags}"
 }
@@ -108,6 +129,8 @@ module "private_postgresql_security_group" {
   ingress_cidr_blocks    = "${local.rfc_1918_private_networks}"
   auto_ingress_with_self = []
 
+  ingress_rules = "${local.common_ingress_rules}"
+
   tags = "${local.common_tags}"
 }
 
@@ -120,6 +143,8 @@ module "private_mssql_security_group" {
 
   ingress_cidr_blocks    = "${local.rfc_1918_private_networks}"
   auto_ingress_with_self = []
+
+  ingress_rules = "${local.common_ingress_rules}"
 
   tags = "${local.common_tags}"
 }
@@ -134,6 +159,8 @@ module "private_redis_security_group" {
   ingress_cidr_blocks    = "${local.rfc_1918_private_networks}"
   auto_ingress_with_self = []
 
+  ingress_rules = "${local.common_ingress_rules}"
+
   tags = "${local.common_tags}"
 }
 
@@ -146,6 +173,8 @@ module "private_memcached_security_group" {
 
   ingress_cidr_blocks    = "${local.rfc_1918_private_networks}"
   auto_ingress_with_self = []
+
+  ingress_rules = "${local.common_ingress_rules}"
 
   tags = "${local.common_tags}"
 }
@@ -163,7 +192,9 @@ module "public_https_security_group" {
   
   ingress_cidr_blocks    = "${local.all_networks}"
   auto_ingress_with_self = []
-  
+
+  ingress_rules = "${local.common_ingress_rules}"
+
   tags = "${local.common_tags}"
 }
 
@@ -176,6 +207,8 @@ module "public_http_security_group" {
 
   ingress_cidr_blocks    = "${local.all_networks}"
   auto_ingress_with_self = []
+
+  ingress_rules = "${local.common_ingress_rules}"
 
   tags = "${local.common_tags}"
 }
