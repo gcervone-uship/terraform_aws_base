@@ -90,3 +90,49 @@ module "rfc_1918_https_443_security_group" {
   }
 
 }
+
+module "world_https_443_security_group" {
+  source = "terraform-aws-modules/security-group/aws//modules/https-443"
+
+  name        = "world-https-443-sg"
+  description = "Security group with tcp 443 open to the world, egress ports are all world open"
+  vpc_id      = "${module.vpc.vpc_id}"
+
+  // Open to the world
+  ingress_cidr_blocks = ["0.0.0.0/0"]
+
+  auto_ingress_with_self = []
+
+  tags = {
+    Terraform = "true"
+    division = "operations"
+    project = "aws base"
+    environment = "proto"
+    envid = "unknown"
+    role = "unknown"
+  }
+
+}
+
+module "world_http_80_security_group" {
+  source = "terraform-aws-modules/security-group/aws//modules/http-80"
+
+  name        = "world-http-80-sg"
+  description = "Security group with tcp 80 open to the world, egress ports are all world open"
+  vpc_id      = "${module.vpc.vpc_id}"
+
+  // Open to the world
+  ingress_cidr_blocks = ["0.0.0.0/0"]
+
+  auto_ingress_with_self = []
+
+  tags = {
+    Terraform = "true"
+    division = "operations"
+    project = "aws base"
+    environment = "proto"
+    envid = "unknown"
+    role = "unknown"
+  }
+
+}
