@@ -1,16 +1,15 @@
 locals {
-
   # These security groups are applied to this VPC
   my_vpc = "${module.vpc.vpc_id}"
 
   # Tags applied to all security groups
   common_tags = {
-    Terraform = "true"
-    division = "operations"
-    project = "aws base"
+    Terraform   = "true"
+    division    = "operations"
+    project     = "aws base"
     environment = "proto"
-    envid = "unknown"
-    role = "default security groups"
+    envid       = "unknown"
+    role        = "default security groups"
   }
 
   # Ingress rules applied to all security group.
@@ -22,7 +21,6 @@ locals {
 
   # Public security groups allow ingress from these networks
   all_networks = ["0.0.0.0/0"]
-
 }
 
 #####################################################
@@ -200,11 +198,11 @@ module "private_nfs_security_group" {
 
 module "public_https_security_group" {
   source = "terraform-aws-modules/security-group/aws//modules/https-443"
-  
+
   name        = "public-https-sg"
   description = "tcp 443 open to all networks, egress ports are open to all networks"
   vpc_id      = "${local.my_vpc}"
-  
+
   ingress_cidr_blocks    = "${local.all_networks}"
   auto_ingress_with_self = []
 

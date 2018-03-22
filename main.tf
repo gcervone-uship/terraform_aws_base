@@ -1,5 +1,3 @@
-
-
 resource "aws_s3_bucket" "terraform_state" {
   bucket = "ml-sre-terraform-state"
 
@@ -26,22 +24,20 @@ module "vpc" {
   redshift_subnets    = ["10.0.41.0/24", "10.0.42.0/24", "10.0.43.0/24"]
 
   create_database_subnet_group = true
+
   // redshift subnet_group is created by default when there are defined redshift subnets, there is no flag to turn it off.
   // elastic cache subnet_group is created by default when there are defined ec subnets, there is no flag to turn it off.
 
-  enable_nat_gateway = true
-  enable_vpn_gateway = false
-
+  enable_nat_gateway       = true
+  enable_vpn_gateway       = false
   enable_s3_endpoint       = false
   enable_dynamodb_endpoint = false
-
   tags = {
-    Terraform = "true"
-    division = "operations"
-    project = "aws base"
+    Terraform   = "true"
+    division    = "operations"
+    project     = "aws base"
     environment = "proto"
-    envid = "unknown"
-    role = "unknown"
+    envid       = "unknown"
+    role        = "unknown"
   }
 }
-
