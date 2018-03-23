@@ -59,3 +59,28 @@ terraform import aws_route53_zone.mml-cloud Z3NHPDOM9AF16B
         - creation of SSL certificates
 
 
+
+
+### Prerequisits
+    - S3 bucket
+    - Dynamo DB table
+    - IAM User to manage infrastructure
+    - Optional IAM groups to differentialte between different groups of users that have different levels of acess
+    
+    When configuring Terraform, use either environment variables or the standard credentials file ~/.aws/credentials to 
+    provide the administrator user's IAM credentials within the administrative account to both the S3 backend and to 
+    Terraform's AWS provider.
+    
+S3 bucket
+//resource "aws_s3_bucket" "terraform_state" {
+//  bucket = "ml-sre-terraform-state"
+//
+//  versioning {
+//    enabled = true
+//  }
+//
+//  lifecycle {
+//    prevent_destroy = true
+//  }
+//}
+

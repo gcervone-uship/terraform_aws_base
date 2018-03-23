@@ -1,15 +1,3 @@
-resource "aws_s3_bucket" "terraform_state" {
-  bucket = "ml-sre-terraform-state"
-
-  versioning {
-    enabled = true
-  }
-
-  lifecycle {
-    prevent_destroy = true
-  }
-}
-
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
