@@ -19,54 +19,12 @@ This README would normally document whatever steps are necessary to get your app
     * Setup remote state on S3
 
 * Dependencies
-    * S3 bucket
+    * IAM User
+    * (Optional) IAM Groups for multiple permissions
+    * S3 bucket - backend (stores state)
+    * DynamoDB - locking
+    * Main DNS - mml.cloud - this is set up by AWS when the domain is purchased.  No need to recreate with terraform.
 
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Macmillan Learning SRE Group - ml-sre@macmillan.com
-
-### ToDo
-
-* Create pipeline workflow to segregate the various environments from each other (i.e. dev, prod, qa, etc)
-
-XX Create security groups for http and https for 0.0.0.0/0 ingress.
-* When removing whole VPC have to run twice.  Is there a dependency that I need to define??
-
-* Segregate workflow on logical boundaries:
-    - Pre-work
-        - organization account creation
-        - s3 bucket creation
-        - primary domain creation (mml.cloud)
-        - import mml.cloud
-        ```bash
-terraform import aws_route53_zone.mml-cloud Z3NHPDOM9AF16B
-```
-    - Create aws base vpcs
-    - How to orchestrate across several accounts.  How do credentials and state work?
-    - Post-config
-        - Peering of VPCs
-        - subdomain delegation for hosted zones mml.cloud
-        - creation of SSL certificates
-
-
-
-
-### Prerequisits
-    - S3 bucket
-    - Dynamo DB table
-    - IAM User to manage infrastructure
-    - Optional IAM groups to differentialte between different groups of users that have different levels of acess
-    
     When configuring Terraform, use either environment variables or the standard credentials file ~/.aws/credentials to 
     provide the administrator user's IAM credentials within the administrative account to both the S3 backend and to 
     Terraform's AWS provider.
@@ -83,4 +41,56 @@ S3 bucket
 //    prevent_destroy = true
 //  }
 //}
+
+
+
+
+* Database configuration
+* How to run tests
+* Deployment instructions
+
+### Contribution guidelines ###
+
+* Writing tests
+    terraform validate
+    terraform fmt
+    terraform graph | dot -Tpng > graph.png
+    terraform plan
+
+* Code review
+* Other guidelines
+
+### Who do I talk to? ###
+
+* Macmillan Learning SRE Group - ml-sre@macmillan.com
+
+### ToDo
+
+* Create pipeline workflow to segregate the various environments from each other (i.e. dev, prod, qa, etc)
+* Separate into two repos.  One for code and one for config.
+
+
+* Segregate workflow on logical boundaries:
+    - Pre-work
+        - organization account creation
+        - iam user
+        - iam groups (optional)
+        - s3 bucket creation
+        - DynamoDB
+        - primary domain creation (mml.cloud)
+
+#### Main 
+VPC 
+Security Groups 
+Route 53 – main DNS (for shared only atm)  <<- should it be a prereq and should I import? 
+
+#### Across Accounts 
+Sub Domain Delegation 
+Sub Domain SSL Certificates 
+Peering VPCs (off for shared) 
+
+### Bugs/Enhancements
+* When removing whole VPC have to run twice.  Is there a dependency that I need to define??
+* Fix - subdomain name in wildcard cert to be more robust.  .cloud thing to remove trailing . is a hack.
+* Use a tag in the VPC to store the latest commit hash for the code and config. 
 
