@@ -36,10 +36,8 @@ resource "aws_route53_record" "glue-ns" {
 resource "aws_acm_certificate" "wildcard-cert" {
   count = "${var.enable_subdomain}"
 
-  // get rid of training dot.
-  // todo need to make this more robust.  currently has many ways to fail.
-  domain_name = "${replace("*.${var.subdomain_prefix}.${data.aws_route53_zone.maindomain.name}", ".cloud.", ".cloud")}"
-
+  # maindomain.name returns a trailing dot we have to remove
+  domain_name       = "${replace("*.${var.subdomain_prefix}.${data.aws_route53_zone.maindomain.name}", "/.$/", "")}"
   validation_method = "DNS"
 }
 

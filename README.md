@@ -91,7 +91,6 @@ Peering VPCs (off for shared)
 
 ### Bugs/Enhancements
 * When removing whole VPC have to run twice.  Is there a dependency that I need to define??
-* Fix - subdomain name in wildcard cert to be more robust.  .cloud thing to remove trailing . is a hack.
 * Use a tag in the VPC to store the latest commit hash for the code and config.
     That doesn't work, will also put in all resources in module.  need something else. 
 * Go back and make sure all taggable resources are tagged.

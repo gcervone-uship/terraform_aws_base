@@ -1,3 +1,12 @@
+region = "us-east-1"
+
+#
+# Auth
+#
+
+admin_role_arn = "arn:aws:iam::758748077998:role/sre"
+backend_s3bucket_role_arn = "arn:aws:iam::758748077998:role/sre"
+
 #
 # Common tags used by resources created by this module.
 #
@@ -17,7 +26,6 @@ commit_map = {
     infrastructure_hash = "unknown"
     configuration_hash  = "unknown"
 }
-
 
 #
 # Main domain configuration.  Required when enable_subdomain is true.

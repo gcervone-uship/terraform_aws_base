@@ -1,12 +1,3 @@
-variable "workspace_iam_roles" {
-  type = "map"
-
-  default = {
-    default   = "arn:aws:iam::758748077998:role/sre"
-    prototype = "arn:aws:iam::758748077998:role/sre"
-  }
-}
-
 provider "aws" {
   version = "~> 1.10"
 
@@ -14,6 +5,6 @@ provider "aws" {
 
   region = "${var.region}"
   assume_role {
-    role_arn = "${var.workspace_iam_roles[terraform.workspace]}"
+    role_arn = "${var.admin_role_arn}"
   }
 }

@@ -3,6 +3,17 @@ variable "region" {
 }
 
 #
+# Auth
+#
+variable "admin_role_arn" {
+  description = "Role for creating / destroying aws resources."
+}
+
+variable "backend_s3bucket_role_arn" {
+  description = "Role for accessing the s3 bucket used for the state file"
+}
+
+#
 # Common Tags
 #
 variable "common_tags" {
