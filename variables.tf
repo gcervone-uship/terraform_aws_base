@@ -1,16 +1,13 @@
-variable "region" {
-  default = "us-east-1"
-}
 
 #
-# Auth
+# Auth for AWS provider
 #
 variable "admin_role_arn" {
-  description = "Role for creating / destroying aws resources."
+  description = "Role for creating / destroying aws resources.  Passed to the aws provider."
 }
 
-variable "backend_s3bucket_role_arn" {
-  description = "Role for accessing the s3 bucket used for the state file"
+variable "region" {
+  default = "us-east-1"
 }
 
 #
