@@ -11,6 +11,15 @@ common_tags = {
 }
 
 #
+# Commit map used by the pipeline to insert infra and code commit hashes.
+#
+commit_map = {
+    infrastructure_hash = "unknown"
+    configuration_hash  = "unknown"
+}
+
+
+#
 # Main domain configuration.  Required when enable_subdomain is true.
 # This will be used as a data source for subdomain operations and a target
 # for adding subdomain glue records.

@@ -20,6 +20,5 @@ module "vpc" {
   enable_vpn_gateway       = false
   enable_s3_endpoint       = false
   enable_dynamodb_endpoint = false
-  tags = "${var.common_tags}"
-
+  tags                     = "${var.common_tags}"
 }

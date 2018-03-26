@@ -2,7 +2,7 @@
 # Data record for main SDL hosted zone.
 #
 data "aws_route53_zone" "maindomain" {
-  name =  "${var.maindomain_name}"
+  name = "${var.maindomain_name}"
 }
 
 #
@@ -10,16 +10,16 @@ data "aws_route53_zone" "maindomain" {
 #
 resource "aws_route53_zone" "subdomain" {
   count = "${var.enable_subdomain}"
-  name = "${var.subdomain_prefix}.${data.aws_route53_zone.maindomain.name}"
+  name  = "${var.subdomain_prefix}.${data.aws_route53_zone.maindomain.name}"
 }
 
 resource "aws_route53_record" "glue-ns" {
-  count = "${var.enable_subdomain}"
+  count   = "${var.enable_subdomain}"
   zone_id = "${data.aws_route53_zone.maindomain.zone_id}"
-  name = "${var.subdomain_prefix}.${data.aws_route53_zone.maindomain.name}"
+  name    = "${var.subdomain_prefix}.${data.aws_route53_zone.maindomain.name}"
 
-  type    = "NS"
-  ttl     = "60"
+  type = "NS"
+  ttl  = "60"
 
   records = [
     "${aws_route53_zone.subdomain.name_servers.0}",
@@ -39,6 +39,7 @@ resource "aws_acm_certificate" "wildcard-cert" {
   // get rid of training dot.
   // todo need to make this more robust.  currently has many ways to fail.
   domain_name = "${replace("*.${var.subdomain_prefix}.${data.aws_route53_zone.maindomain.name}", ".cloud.", ".cloud")}"
+
   validation_method = "DNS"
 }
 
@@ -53,7 +54,7 @@ resource "aws_route53_record" "wildcard-cert_validation" {
 }
 
 resource "aws_acm_certificate_validation" "wildcard-cert" {
-  count = "${var.enable_subdomain}"
+  count                   = "${var.enable_subdomain}"
   certificate_arn         = "${aws_acm_certificate.wildcard-cert.arn}"
   validation_record_fqdns = ["${aws_route53_record.wildcard-cert_validation.fqdn}"]
 }
@@ -68,3 +69,4 @@ resource "aws_acm_certificate_validation" "wildcard-cert" {
 //
 //  records = ["127.0.0.1"]
 //}
+

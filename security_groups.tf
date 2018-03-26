@@ -3,13 +3,8 @@ locals {
   my_vpc = "${module.vpc.vpc_id}"
 
   # Tags applied to all security groups
-  common_tags = {
-    Terraform   = "true"
-    division    = "operations"
-    project     = "aws base"
-    environment = "proto"
-    envid       = "unknown"
-    role        = "default security groups"
+  sg_tags = {
+    role = "default security groups"
   }
 
   # Ingress rules applied to all security group.
@@ -23,10 +18,9 @@ locals {
   all_networks = ["0.0.0.0/0"]
 }
 
-#####################################################
+#
 # Default Security groups open to private networks
-#####################################################
-
+#
 module "private_ssh_security_group" {
   source = "terraform-aws-modules/security-group/aws//modules/ssh"
 
@@ -39,7 +33,7 @@ module "private_ssh_security_group" {
 
   ingress_rules = "${local.common_ingress_rules}"
 
-  tags = "${local.common_tags}"
+  tags = "${merge(var.common_tags, local.sg_tags)}"
 }
 
 module "private_http_security_group" {
@@ -54,7 +48,7 @@ module "private_http_security_group" {
 
   ingress_rules = "${local.common_ingress_rules}"
 
-  tags = "${local.common_tags}"
+  tags = "${merge(var.common_tags, local.sg_tags)}"
 }
 
 module "private_https_security_group" {
@@ -69,7 +63,7 @@ module "private_https_security_group" {
 
   ingress_rules = "${local.common_ingress_rules}"
 
-  tags = "${local.common_tags}"
+  tags = "${merge(var.common_tags, local.sg_tags)}"
 }
 
 module "private_rdp_security_group" {
@@ -84,7 +78,7 @@ module "private_rdp_security_group" {
 
   ingress_rules = "${local.common_ingress_rules}"
 
-  tags = "${local.common_tags}"
+  tags = "${merge(var.common_tags, local.sg_tags)}"
 }
 
 module "private_redshift_security_group" {
@@ -99,7 +93,7 @@ module "private_redshift_security_group" {
 
   ingress_rules = "${local.common_ingress_rules}"
 
-  tags = "${local.common_tags}"
+  tags = "${merge(var.common_tags, local.sg_tags)}"
 }
 
 module "private_mysql_security_group" {
@@ -114,7 +108,7 @@ module "private_mysql_security_group" {
 
   ingress_rules = "${local.common_ingress_rules}"
 
-  tags = "${local.common_tags}"
+  tags = "${merge(var.common_tags, local.sg_tags)}"
 }
 
 module "private_postgresql_security_group" {
@@ -129,7 +123,7 @@ module "private_postgresql_security_group" {
 
   ingress_rules = "${local.common_ingress_rules}"
 
-  tags = "${local.common_tags}"
+  tags = "${merge(var.common_tags, local.sg_tags)}"
 }
 
 module "private_mssql_security_group" {
@@ -144,7 +138,7 @@ module "private_mssql_security_group" {
 
   ingress_rules = "${local.common_ingress_rules}"
 
-  tags = "${local.common_tags}"
+  tags = "${merge(var.common_tags, local.sg_tags)}"
 }
 
 module "private_redis_security_group" {
@@ -159,7 +153,7 @@ module "private_redis_security_group" {
 
   ingress_rules = "${local.common_ingress_rules}"
 
-  tags = "${local.common_tags}"
+  tags = "${merge(var.common_tags, local.sg_tags)}"
 }
 
 module "private_memcached_security_group" {
@@ -174,7 +168,7 @@ module "private_memcached_security_group" {
 
   ingress_rules = "${local.common_ingress_rules}"
 
-  tags = "${local.common_tags}"
+  tags = "${merge(var.common_tags, local.sg_tags)}"
 }
 
 module "private_nfs_security_group" {
@@ -189,13 +183,12 @@ module "private_nfs_security_group" {
 
   ingress_rules = "${local.common_ingress_rules}"
 
-  tags = "${local.common_tags}"
+  tags = "${merge(var.common_tags, local.sg_tags)}"
 }
 
-#####################################################
+#
 # Default Security groups open to all networks
-#####################################################
-
+#
 module "public_https_security_group" {
   source = "terraform-aws-modules/security-group/aws//modules/https-443"
 
@@ -208,7 +201,7 @@ module "public_https_security_group" {
 
   ingress_rules = "${local.common_ingress_rules}"
 
-  tags = "${local.common_tags}"
+  tags = "${merge(var.common_tags, local.sg_tags)}"
 }
 
 module "public_http_security_group" {
@@ -223,5 +216,5 @@ module "public_http_security_group" {
 
   ingress_rules = "${local.common_ingress_rules}"
 
-  tags = "${local.common_tags}"
+  tags = "${merge(var.common_tags, local.sg_tags)}"
 }
