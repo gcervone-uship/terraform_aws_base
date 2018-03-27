@@ -21,5 +21,4 @@ module "vpc" {
   enable_s3_endpoint       = false
   enable_dynamodb_endpoint = false
   tags                     = "${var.common_tags}"
-  vpc_tags                 = "${var.commit_map}"
 }

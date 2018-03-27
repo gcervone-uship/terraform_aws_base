@@ -94,3 +94,4 @@ Peering VPCs (off for shared)
 * Use a tag in the VPC to store the latest commit hash for the code and config.
     That doesn't work, will also put in all resources in module.  need something else. 
 * Go back and make sure all taggable resources are tagged.
+
