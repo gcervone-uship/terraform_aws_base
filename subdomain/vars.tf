@@ -8,17 +8,6 @@ variable "maindomain_name" {
   default     = "changeme.local."
 }
 
-#
-# Subdomain configuration.  Setting enable_subdomain to true will:
-#   1. Create subdomain
-#   2. Add glue recrods to maindomain_name hosted zone
-#   3. Request a DNS validated (automated) SSL cert for *.<subdomain
-#
-variable "enable_subdomain" {
-  description = "Set to true if this account will have a subdomain hosted zone that will be delegated from maindomain"
-  default     = false
-}
-
 variable "subdomain_prefix" {
   description = "prefix to be added to maindomain_name to create a subdomain.  For example 'dev', will create dev.<maindomain_name>.  This should be a unique subdomain."
   default     = "changeme"
