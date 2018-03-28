@@ -1,7 +1,15 @@
+provider "aws" {
+  alias = "maindomain"
+}
+
+provider "aws" {
+}
+
 #
 # Data record for main SDL hosted zone.
 #
 data "aws_route53_zone" "maindomain" {
+  provider = "aws.maindomain"
   name = "${var.maindomain_name}"
 }
 
@@ -13,6 +21,7 @@ resource "aws_route53_zone" "subdomain" {
 }
 
 resource "aws_route53_record" "glue-ns" {
+  provider = "aws.maindomain"
   zone_id = "${data.aws_route53_zone.maindomain.zone_id}"
   name    = "${var.subdomain_prefix}.${data.aws_route53_zone.maindomain.name}"
 
@@ -53,13 +62,12 @@ resource "aws_acm_certificate_validation" "wildcard-cert" {
 }
 
 # Test record
-//resource "aws_route53_record" "test" {
-//  count = "${var.enable_subdomain}"
-//  name    = "test"
-//  type    = "A"
-//  zone_id = "${aws_route53_zone.subdomain.zone_id}"
-//  ttl     = "30"
-//
-//  records = ["127.0.0.1"]
-//}
+resource "aws_route53_record" "test" {
+  name    = "test"
+  type    = "A"
+  zone_id = "${aws_route53_zone.subdomain.zone_id}"
+  ttl     = "30"
+
+  records = ["127.0.0.1"]
+}
 
