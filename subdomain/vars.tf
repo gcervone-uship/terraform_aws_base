@@ -12,3 +12,22 @@ variable "subdomain_prefix" {
   description = "prefix to be added to maindomain_name to create a subdomain.  For example 'dev', will create dev.<maindomain_name>.  This should be a unique subdomain."
   default     = "changeme"
 }
+
+variable "common_tags" {
+  type        = "map"
+  description = "Tags used by default for the resources created by terraform"
+
+  default = {
+    Terraform   = "true"
+    division    = "unknown"
+    project     = "unknown"
+    environment = "unknown"
+    envid       = "unknown"
+    role        = "unknown"
+  }
+}
+
+variable "enable_subdomain" {
+  description = "Boolean - set to true to enable subdomain creation"
+  default = false
+}

@@ -19,6 +19,10 @@ variable "peer_vpc_region" {
   description = "VPC region for the peer to connect to"
 }
 
+variable "enable_vpc_peering" {
+  description = "Boolean - set to true to enable vpc peering"
+  default = false
+}
 
 variable "common_tags" {
   type        = "map"

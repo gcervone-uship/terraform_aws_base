@@ -11,3 +11,12 @@ variable "common_tags" {
     role        = "unknown"
   }
 }
+
+variable "vpc_id" {
+  description = "Associate all created security groups with this VPC."
+}
+
+variable "enable_default_security_groups" {
+  description = "Boolean - set to true to enable creating the default security groups"
+  default = false
+}
