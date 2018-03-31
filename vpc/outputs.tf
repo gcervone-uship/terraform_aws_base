@@ -5,6 +5,6 @@ output "vpc_id" {
 }
 
 output "private_subnets" {
-  description = "One of the private subnets for placing a test server."
+  description = "Private subnets for placing a test server."
   value = "${module.vpc.private_subnets}"
 }
