@@ -36,7 +36,7 @@ resource "aws_vpc_peering_connection_accepter" "peer" {
 # Populate our routing tables with routes to peer
 #
 resource "aws_route" "local_to_peer" {
-  count = "${var.enable_vpc_peering_route_table_updates ? length(var.my_public_route_table_ids) : 1}"
+  count = "${var.enable_vpc_peering_route_table_updates ? length(var.my_public_route_table_ids) : 0}"
   route_table_id            = "${element(var.my_public_route_table_ids, count.index)}"
   destination_cidr_block    = "${var.peer_vpc_cidr_block}"
   vpc_peering_connection_id = "${aws_vpc_peering_connection.peer.id}"
@@ -48,7 +48,7 @@ resource "aws_route" "local_to_peer" {
 #
 resource "aws_route" "peer_to_local" {
   # count = "${var.enable_vpc_peering_route_table_updates ? var.peer_public_route_table_ids_count : 0}"
-  count = "${var.enable_vpc_peering_route_table_updates ? 1 : 1}"
+  count = "${var.enable_vpc_peering_route_table_updates ? 1 : 0}"
 
   provider = "aws.peer"
 
