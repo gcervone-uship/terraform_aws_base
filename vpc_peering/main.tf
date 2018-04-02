@@ -47,7 +47,7 @@ resource "aws_route" "local_to_peer" {
 # Populate peer's routing tables with routes to us
 #
 resource "aws_route" "peer_to_local" {
-  count = "${var.enable_vpc_peering_route_table_updates ? length(var.peer_public_route_table_ids)} : 0}"
+  count = "${var.enable_vpc_peering_route_table_updates ? length(var.peer_public_route_table_ids) : 0}"
 
   provider = "aws.peer"
 
