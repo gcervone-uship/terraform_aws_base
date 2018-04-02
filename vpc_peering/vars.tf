@@ -52,6 +52,11 @@ variable "enable_vpc_peering" {
   default = false
 }
 
+variable "enable_vpc_peering_route_table_updates" {
+  description = "Boolean - set to true to enable vpc peering"
+  default = false
+}
+
 variable "common_tags" {
   type        = "map"
   description = "Tags used by default for the resources created by terraform"
