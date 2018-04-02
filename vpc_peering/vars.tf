@@ -34,9 +34,17 @@ variable "peer_public_route_table_ids" {
   description = "List of IDs of public route tables in VPC peer"
 }
 
+variable "peer_public_route_table_ids_count" {
+  description = "Count of list of IDs of public route tables in VPC peer"
+}
+
 variable "peer_private_route_table_ids" {
   type = "list"
   description = "List of IDs of private route tables in VPC peer"
+}
+
+variable "peer_private_route_table_ids_count" {
+  description = "Count of list of IDs of private route tables in VPC peer"
 }
 
 variable "peer_vpc_owner_id" {
