@@ -43,9 +43,8 @@ resource "aws_vpc_peering_connection_accepter" "peer" {
 ##############################################################################
 
 locals {
-  my_route_table_ids       = "${concat(var.my_private_route_table_ids, var.my_public_route_table_ids)}"
-  my_route_table_ids_count = "${var.my_private_route_table_ids_count + var.my_public_route_table_ids_count}"
-
+  my_route_table_ids         = "${concat(var.my_private_route_table_ids, var.my_public_route_table_ids)}"
+  my_route_table_ids_count   = "${var.my_private_route_table_ids_count + var.my_public_route_table_ids_count}"
   peer_route_table_ids       = "${concat(var.peer_private_route_table_ids, var.peer_public_route_table_ids)}"
   peer_route_table_ids_count = "${var.peer_private_route_table_ids_count + var.peer_public_route_table_ids_count}"
 
