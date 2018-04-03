@@ -45,9 +45,6 @@ resource "aws_vpc_peering_connection_accepter" "peer" {
 #                                                                            #
 ##############################################################################
 
-#
-# Populate our routing tables with routes to peer
-#
 
 locals {
   my_route_table_ids = "${concat(var.my_private_route_table_ids, var.my_public_route_table_ids)}"
@@ -55,13 +52,18 @@ locals {
 
   peer_route_table_ids = "${concat(var.peer_private_route_table_ids, var.peer_public_route_table_ids)}"
   peer_route_table_ids_count = "${length(local.peer_route_table_ids)}"
+
+  vpc_peering_connection_id = "${aws_vpc_peering_connection.peer.id}"
 }
 
+#
+# Populate our routing tables with routes to peer
+#
 resource "aws_route" "local_to_peer" {
   count = "${var.enable_vpc_peering_route_table_updates ? local.my_route_table_ids_count : 0}"
   route_table_id            = "${element(local.my_route_table_ids, count.index)}"
   destination_cidr_block    = "${var.peer_vpc_cidr_block}"
-  vpc_peering_connection_id = "${aws_vpc_peering_connection.peer.id}"
+  vpc_peering_connection_id = "${local.vpc_peering_connection_id}"
 }
 
 #
@@ -74,5 +76,5 @@ resource "aws_route" "peer_to_local" {
 
   route_table_id            = "${element(local.peer_route_table_ids, count.index)}"
   destination_cidr_block    = "${var.my_vpc_cidr_block}"
-  vpc_peering_connection_id = "${aws_vpc_peering_connection.peer.id}"
+  vpc_peering_connection_id = "${local.vpc_peering_connection_id}"
 }
