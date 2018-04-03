@@ -12,13 +12,21 @@ variable "my_vpc_cidr_block" {
 }
 
 variable "my_public_route_table_ids" {
-  type = "list"
+  type        = "list"
   description = "List of IDs of public route tables in VPC peer"
 }
 
+variable "my_public_route_table_ids_count" {
+  description = "Count of list of IDs of public route tables in VPC peer"
+}
+
 variable "my_private_route_table_ids" {
-  type = "list"
+  type        = "list"
   description = "List of IDs of private route tables in VPC peer"
+}
+
+variable "my_private_route_table_ids_count" {
+  description = "Count of list of IDs of private route tables in VPC peer"
 }
 
 variable "peer_vpcid" {
@@ -30,7 +38,7 @@ variable "peer_vpc_cidr_block" {
 }
 
 variable "peer_public_route_table_ids" {
-  type = "list"
+  type        = "list"
   description = "List of IDs of public route tables in VPC peer"
 }
 
@@ -39,7 +47,7 @@ variable "peer_public_route_table_ids_count" {
 }
 
 variable "peer_private_route_table_ids" {
-  type = "list"
+  type        = "list"
   description = "List of IDs of private route tables in VPC peer"
 }
 
@@ -57,12 +65,12 @@ variable "peer_vpc_region" {
 
 variable "enable_vpc_peering" {
   description = "Boolean - set to true to enable vpc peering"
-  default = false
+  default     = false
 }
 
 variable "enable_vpc_peering_route_table_updates" {
   description = "Boolean - set to true to enable vpc peering"
-  default = false
+  default     = false
 }
 
 variable "common_tags" {
