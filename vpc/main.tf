@@ -22,3 +22,11 @@ module "vpc" {
   enable_dynamodb_endpoint = false
   tags                     = "${var.common_tags}"
 }
+
+# Take over the default security group created and remove all ingress/egress rules.
+# To comply with CIS AWS Foundation Standard
+# 4.4 Ensure the default security group of every VPC restricts all traffic
+resource "aws_default_security_group" "default" {
+  vpc_id = "${module.vpc.vpc_id}"
+  tags   = "${var.common_tags}"
+}
