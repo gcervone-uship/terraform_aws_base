@@ -56,7 +56,7 @@ resource "aws_iam_role_policy" "vpc_flowlog_policy" {
         "logs:DescribeLogStreams"
       ],
       "Effect": "Allow",
-      "Resource": "*"
+      "Resource": "${aws_cloudwatch_log_group.vpc_flowlog_log_group.arn}"
     }
   ]
 }
