@@ -22,7 +22,7 @@ This README would normally document whatever steps are necessary to get your app
     * IAM User
     * (Optional) IAM Groups for multiple permissions
     * S3 bucket - backend (stores state)
-    * DynamoDB - locking
+    * DynamoDB - locking (table name: "ml-sre-terraform-aws-base" primary partition key "LockID")
     * Main DNS - mml.cloud - this is set up by AWS when the domain is purchased.  No need to recreate with terraform.
 
     When configuring Terraform, use either environment variables or the standard credentials file ~/.aws/credentials to 
