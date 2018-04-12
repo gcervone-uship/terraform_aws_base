@@ -21,7 +21,7 @@ resource "aws_cloudwatch_log_group" "vpc_flowlog_log_group" {
 resource "aws_iam_role" "vpc_flowlog_role" {
   count = "${var.enable_vpc_flow_logs}"
 
-  name = "flowlog_${var.vpc_id}_role"
+  name = "tf-flowlog_${var.vpc_id}_role"
 
   assume_role_policy = <<EOF
 {
@@ -45,7 +45,7 @@ resource "aws_iam_role_policy" "vpc_flowlog_policy" {
   count = "${var.enable_vpc_flow_logs}"
 
   role = "${aws_iam_role.vpc_flowlog_role.id}"
-  name = "vpc_flowlog_policy"
+  name = "tf-vpc_flowlog_policy"
 
   policy = <<EOF
 {
