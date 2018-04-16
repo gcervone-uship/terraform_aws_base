@@ -14,7 +14,7 @@ output "public_route_table_ids" {
   value       = "${module.vpc.public_route_table_ids}"
 }
 
-# **** WORKAROUND! todo document this in readme...
+# **** WORKAROUND! (See README.md)
 # Using a computed resource wasn't supported downstream so
 # make static "1".  With out current implementation this should
 # be okay, but this workaround will break if this changes.
@@ -28,7 +28,7 @@ output "private_route_table_ids" {
   value       = "${module.vpc.private_route_table_ids}"
 }
 
-# **** WORKAROUND! todo document this in readme...
+# **** WORKAROUND! (See README.md)
 # Using the number of vpc_azs to compute the number of private
 # routing tables to prevent this from being a computed value.
 # A count downstream in vpc_peering doesn't currently support computed
