@@ -1,3 +1,8 @@
+variable "enable_vpc_flow_logs" {
+  description = "Enable the creation of flow logs for this VPC"
+  default     = false
+}
+
 variable "traffic_type" {
   description = "Type of traffic that flow log will capture.  Possible values: ALL, ACCEPT, REJECT"
   default     = "ALL"
@@ -24,9 +29,4 @@ variable "common_tags" {
 variable "retention_in_days" {
   description = "Retention policy for flow logs in days"
   default     = "365"
-}
-
-variable "enable_vpc_flow_logs" {
-  description = "Enable the creation of flow logs for this VPC"
-  default     = false
 }

@@ -1,3 +1,8 @@
+variable "enable_default_security_groups" {
+  description = "Boolean - set to true to enable creating the default security groups"
+  default     = false
+}
+
 variable "common_tags" {
   type        = "map"
   description = "Tags used by default for the resources created by terraform"
@@ -14,9 +19,4 @@ variable "common_tags" {
 
 variable "vpc_id" {
   description = "Associate all created security groups with this VPC."
-}
-
-variable "enable_default_security_groups" {
-  description = "Boolean - set to true to enable creating the default security groups"
-  default = false
 }

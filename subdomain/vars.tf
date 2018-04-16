@@ -1,5 +1,5 @@
 #
-# Main domain configuration.  Required when enable_subdomain is truel.
+# Main domain configuration.  Required when enable_subdomain is true.
 # This will be used as a data source for subdomain operations and a target
 # for adding subdomain glue records.
 #
@@ -29,5 +29,10 @@ variable "common_tags" {
 
 variable "enable_subdomain" {
   description = "Boolean - set to true to enable subdomain creation"
-  default = false
+  default     = false
+}
+
+variable "enable_subdomain_wildcard_cert" {
+  description = "Boolean - set to true to enable creation of a wildcard cert for the subdomain"
+  default     = false
 }

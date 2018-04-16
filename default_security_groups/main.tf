@@ -1,23 +1,33 @@
 locals {
+  #
   # Tags applied to all security groups
+  #
   sg_tags = {
     role = "default security groups"
   }
 
+  #
   # Ingress rules applied to all security group.
   # Add ICMP to all rules
+  #
   common_ingress_rules = ["all-icmp"]
 
+  #
   # Private security groups allow ingress from these networks
+  #
   rfc_1918_private_networks = ["10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
 
+  #
   # Public security groups allow ingress from these networks
+  #
   all_networks = ["0.0.0.0/0"]
 }
 
-#
-# Default Security groups open to private networks
-#
+##############################################################################
+#                                                                            #
+#         DEFAULT SECURITY GROUPS OPEN TO **PRIVATE** NETWORKS               #
+#                                                                            #
+##############################################################################
 module "private_ssh_security_group" {
   source = "terraform-aws-modules/security-group/aws//modules/ssh"
 
@@ -205,9 +215,11 @@ module "private_nfs_security_group" {
   tags = "${merge(var.common_tags, local.sg_tags)}"
 }
 
-#
-# Default Security groups open to all networks
-#
+##############################################################################
+#                                                                            #
+#             DEFAULT SECURITY GROUPS OPEN TO **ALL** NETWORKS               #
+#                                                                            #
+##############################################################################
 module "public_https_security_group" {
   source = "terraform-aws-modules/security-group/aws//modules/https-443"
 

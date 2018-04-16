@@ -1,18 +1,16 @@
-# Use by the aws_vpc_peering_connection_accepter
-provider "aws" {
-  alias = "peer"
-}
-
-# Used by the aws_vpc_peering_connection
-provider "aws" {}
-
 ##############################################################################
 #                                                                            #
 #                        SETUP VPC PEERING BOTH SIDES                        #
 #                                                                            #
 ##############################################################################
 
+#
 # Requester's side of the connection.
+#
+provider "aws" {
+  alias = "peer"
+}
+
 resource "aws_vpc_peering_connection" "peer" {
   count = "${var.enable_vpc_peering}"
 
@@ -25,7 +23,11 @@ resource "aws_vpc_peering_connection" "peer" {
   tags = "${var.common_tags}"
 }
 
+#
 # Accepter's side of the connection.
+#
+provider "aws" {}
+
 resource "aws_vpc_peering_connection_accepter" "peer" {
   count = "${var.enable_vpc_peering}"
 
