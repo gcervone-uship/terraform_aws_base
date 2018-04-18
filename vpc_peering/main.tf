@@ -48,7 +48,8 @@ locals {
   my_route_table_ids         = "${concat(var.my_private_route_table_ids, var.my_public_route_table_ids)}"
   my_route_table_ids_count   = "${var.my_private_route_table_ids_count + var.my_public_route_table_ids_count}"
   peer_route_table_ids       = "${concat(var.peer_private_route_table_ids, var.peer_public_route_table_ids)}"
-  peer_route_table_ids_count = "${var.peer_private_route_table_ids_count + var.peer_public_route_table_ids_count}"
+  # peer_route_table_ids_count = "${var.peer_private_route_table_ids_count + var.peer_public_route_table_ids_count}"
+  peer_route_table_ids_count = "${var.peer_private_route_table_ids_count}"
 
   # Workaround below needed because resource may have count=0 -- https://www.terraform.io/upgrade-guides/0-11.html#referencing-attributes-from-resources-with-count-0
   vpc_peering_connection_id = "${element(concat(aws_vpc_peering_connection.peer.*.id, list("")), 0)}"
@@ -68,8 +69,7 @@ resource "aws_route" "local_to_peer" {
 # Populate peer's routing tables with routes to us
 #
 resource "aws_route" "peer_to_local" {
-  #count = "${var.enable_vpc_peering_route_table_updates ? local.peer_route_table_ids_count : 0}"
-  count = "${var.enable_vpc_peering_route_table_updates ? 0 : 0}"
+  count = "${var.enable_vpc_peering_route_table_updates ? local.peer_route_table_ids_count : 0}"
 
   provider = "aws.peer"
 
