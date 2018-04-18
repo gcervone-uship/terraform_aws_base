@@ -85,6 +85,7 @@ variable "peer_vpc_cidr_block" {
 variable "peer_public_route_table_ids" {
   type        = "list"
   description = "List of IDs of public route tables in VPC peer"
+  default = []
 }
 
 variable "peer_public_route_table_ids_count" {
@@ -94,6 +95,7 @@ variable "peer_public_route_table_ids_count" {
 variable "peer_private_route_table_ids" {
   type        = "list"
   description = "List of IDs of private route tables in VPC peer"
+  default = []
 }
 
 variable "peer_private_route_table_ids_count" {
