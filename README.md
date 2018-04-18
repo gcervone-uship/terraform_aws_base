@@ -64,22 +64,7 @@ S3 bucket
 
 * Macmillan Learning SRE Group - ml-sre@macmillan.com
 
-### ToDo
-
-* Create pipeline workflow to segregate the various environments from each other (i.e. dev, prod, qa, etc)
-* Separate into two repos.  One for code and one for config.
-
-
-* Segregate workflow on logical boundaries:
-    - Pre-work
-        - organization account creation
-        - iam user
-        - iam groups (optional)
-        - s3 bucket creation
-        - DynamoDB
-        - primary domain creation (mml.cloud)
-
-#### Main 
+#### Main
 VPC 
 Security Groups 
 Route 53 – main DNS (for shared only atm)  <<- should it be a prereq and should I import? 
