@@ -49,7 +49,8 @@ locals {
   my_route_table_ids_count   = "${var.my_private_route_table_ids_count + var.my_public_route_table_ids_count}"
   peer_route_table_ids       = "${concat(var.peer_private_route_table_ids, var.peer_public_route_table_ids)}"
   # peer_route_table_ids_count = "${var.peer_private_route_table_ids_count + var.peer_public_route_table_ids_count}"
-  peer_route_table_ids_count = "${var.peer_private_route_table_ids_count}"
+  # peer_route_table_ids_count = "${var.peer_private_route_table_ids_count}"
+  peer_route_table_ids_count = "0"
 
   # Workaround below needed because resource may have count=0 -- https://www.terraform.io/upgrade-guides/0-11.html#referencing-attributes-from-resources-with-count-0
   vpc_peering_connection_id = "${element(concat(aws_vpc_peering_connection.peer.*.id, list("")), 0)}"
