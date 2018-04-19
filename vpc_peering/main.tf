@@ -62,6 +62,10 @@ resource "aws_route" "local_to_peer" {
   route_table_id            = "${element(local.my_route_table_ids, count.index)}"
   destination_cidr_block    = "${var.peer_vpc_cidr_block}"
   vpc_peering_connection_id = "${local.vpc_peering_connection_id}"
+
+  timeouts {
+    create = "5m"
+  }
 }
 
 #
@@ -75,4 +79,8 @@ resource "aws_route" "peer_to_local" {
   route_table_id            = "${element(local.peer_route_table_ids, count.index)}"
   destination_cidr_block    = "${var.my_vpc_cidr_block}"
   vpc_peering_connection_id = "${local.vpc_peering_connection_id}"
+
+  timeouts {
+    create = "5m"
+  }
 }
